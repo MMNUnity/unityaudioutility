@@ -30,14 +30,14 @@ public class AudioSourceController : MonoBehaviour
     [Range(-81, 24)] public float startingVolume;
 
     [Header("Fader")]// Controls fades.
-    [Min(0)] [SerializeField] float FadeInOnAwakeTime = 0f;
+    [Min(0)] [SerializeField] float FadeInOnAwakeTime = 0f; // ### MMN MAKE THIS CAMELCASE TO MATCH REST OF VARS ### 
     [Range(-81, 24), SerializeField]  float faderVolume;
     public bool isFading;
     private IEnumerator fadeCoroutine;
     [HideInInspector] public float currentFadeTarget;
     [HideInInspector] public float currentFadeTime;
 
-
+//MMN remove extra whitespace here
     [Header("Clip Player")] // Choosing and playing back clips with variations.
     [SerializeField] List<AudioClip> playlist = new List<AudioClip>();
     public bool playOnAwake = false;
@@ -54,7 +54,7 @@ public class AudioSourceController : MonoBehaviour
     [Header("Audibility Check")]
     public bool enableAudibilityCheck = false;
 
-
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
     bool hasInit = false;
 
     /*    DEBUGGING   */
@@ -66,14 +66,14 @@ public class AudioSourceController : MonoBehaviour
         }
     }
 
-
-
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
     public void SetInputGain(float value)
     {
         inputGain = value;
         UpdateParams();
 
-    }
+    } // ### MMN ADD LINE BREAK HERE ###
     public void SetOutputGain(float value)
     {
         outputGain = value;
@@ -88,7 +88,7 @@ public class AudioSourceController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         // Takes over audiosource functions.
-        if (audioSource.isPlaying)
+        if (audioSource.isPlaying) // ### MMN STATEMENT BRACKETS ###
             audioSource.Stop();
         audioSource.loop = false;
         audioSource.playOnAwake = false;
@@ -104,17 +104,17 @@ public class AudioSourceController : MonoBehaviour
                 playlist.Add(audioSource.clip);
             }
             else
-            {
+            { // ### MMN IF YOU INTEND TO USE THE DEBUG LOG.ERROR IN THIS FORMAT A FEW TIMES YOU COULD MAKE IT A FUNCTION AND PASS IN A DBG MESSAGE ###
                 Debug.LogError(this + "on " + gameObject.name + ": You must attach at least one AudioClip to the AudioSource or the AudioSourceController");
             }
         }
 
-        if (newClipPerPlay)
+        if (newClipPerPlay) // ### MMN STATEMENT BRACKETS ###
             audioSource.clip = AudioUtility.RandomClipFromList(playlist);
         else
             audioSource.clip = playlist[0];
 
-
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
     }
 
     private void Start()
@@ -126,7 +126,7 @@ public class AudioSourceController : MonoBehaviour
     private void Initialise()
     {
         
-        if (enableAudibilityCheck)
+        if (enableAudibilityCheck) // ### MMN STATEMENT BRACKETS ###
             StartCoroutine(CheckAudibility(1));
         else
             StartPlayback();
@@ -169,13 +169,13 @@ public class AudioSourceController : MonoBehaviour
             FadeTo(0f, FadeInOnAwakeTime, 1.0f, false);
         }
             
-        
-        
-
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###        
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###       
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
     }
 
-
-
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
     #endregion
 
     public bool CheckIfAudible()
@@ -187,8 +187,8 @@ public class AudioSourceController : MonoBehaviour
 
     }
 
-
-
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
     #region Player/Looper
 
     /// <summary>
@@ -225,25 +225,26 @@ public class AudioSourceController : MonoBehaviour
         audioSource.Play();
     }
 
-
-
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
+// ### MMN REMOVE EXTRA WHITESPACE LINE HERE ###
     ///
     public void PlayLoop()
     {
         loopClips = true;
         loopCoroutine = ClipLooper(intervalBetweenPlays);
         StartCoroutine(loopCoroutine);
-    }
+    } // ### MMN ADD LINE BREAK HERE ###
     public void PlayLoop(int interval)
     {
         loopClips = true;
         loopCoroutine = ClipLooper(interval);
         StartCoroutine(loopCoroutine);
-    }
+    } // ### MMN ADD LINE BREAK HERE ###
     public void StopLooping(float fadeOutTime)
     {
+        // ### MMN STATEMENT BRACKETS ###
         if (loopCoroutine != null) StopCoroutine(loopCoroutine);
-
+        // ### MMN STATEMENT BRACKETS ###
         if (fadeOutTime > 0.0f) StartCoroutine(StopSourceAfter(fadeOutTime));           
         else audioSource.Stop();
 
@@ -256,7 +257,7 @@ public class AudioSourceController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         audioSource.Stop();
         yield break;
-    }
+    } // ### MMN ADD LINE BREAK HERE ###
     private IEnumerator ClipLooper(float interval)
     {
         while (true)
@@ -273,7 +274,7 @@ public class AudioSourceController : MonoBehaviour
                         // if no interval (straight loop on one clip): use audiosource native looper, which is more precise than coroutine
                         audioSource.loop = true;
                         audioSource.pitch = pitch + Random.Range(-pitchRand, pitchRand);
-
+                        // ### MMN STATEMENT BRACKETS ###
                         if (!audioSource.isPlaying) audioSource.Play();
 
                         looperIsLooping = true;
@@ -353,11 +354,11 @@ public class AudioSourceController : MonoBehaviour
         isFading = true;
     }
 
-
+// ### MMN REMOVE EXTRA LINE BREAK HERE ###
     private IEnumerator StartFadeInDb(float fadetime, float targetVol, AnimationCurve animcur, bool stopAfterFade)
     {
         float startVol = faderVolume;
-
+// ### MMN REMOVE COMMENTED OUT CODE ###
         //Debug.Log(this + "on " + gameObject.name + " : Fading to " + targetVol + " from " + startVol + " over " + fadetime);
         float currentTime = 0f;
         while (currentTime < fadetime)
@@ -386,7 +387,7 @@ public class AudioSourceController : MonoBehaviour
         audioSource.volume = AudioUtility.ConvertDbtoA(currentVol);
     }
 
-
+// ### MMN REMOVE EXTRA LINE BREAK HERE ###
     #endregion
     private void OnDisable()
     {
@@ -394,3 +395,4 @@ public class AudioSourceController : MonoBehaviour
     }
 
 }
+// ### MMN REMOVE EXTRA LINE BREAK HERE ###
