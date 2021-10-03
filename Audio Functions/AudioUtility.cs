@@ -29,6 +29,7 @@ public static class AudioUtility
 
     // ### MMN REMOVE WHITESPACE LINE HERE ###
     // ### MMN REMOVE WHITESPACE LINE HERE ###
+    // ### MMN THIS SHOULD PROBABLY BE CALLED 'MAP TO RANGE', SCALE VALUE IS VAGUE. ###
     public static float ScaleValue(float value, float originalStart, float originalEnd, float newStart, float newEnd)
     {
         // credit to Wim Coenen, https://stackoverflow.com/questions/4229662/convert-numbers-within-a-range-to-numbers-within-another-range //
