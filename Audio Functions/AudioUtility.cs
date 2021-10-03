@@ -6,13 +6,13 @@ using UnityEngine.Audio;
 public static class AudioUtility
 {
     public static float minimum = -81f;
-
+    // ### MMN BE MORE SPECIFIC IN THIS FUNCTION NAME, WHAT'S A? 'CONVERTAMPLITUDETODB' ###
     public static float ConvertAtoDb(float amp)
     {
         amp = Mathf.Clamp(amp, ConvertDbtoA(minimum), 1f);
         return 20 * Mathf.Log(amp) / Mathf.Log(10);
     }
-
+    // ### MMN BE MORE SPECIFIC IN THIS FUNCTION NAME, WHAT'S A? 'CONVERTDBTOAMPLITUDE' ###
     public static float ConvertDbtoA(float db)
     {
         return Mathf.Pow(10, db / 20);
@@ -21,14 +21,14 @@ public static class AudioUtility
     public static AudioClip RandomClipFromArray(AudioClip[] cliplist)
     {
         return cliplist[Mathf.Clamp(0, Random.Range(0, cliplist.Length), cliplist.Length)];
-    }
+    }     // ### MMN LINE BREAK HERE ###
     public static AudioClip RandomClipFromList(List<AudioClip> cliplist)
     {
         return cliplist[Mathf.Clamp(0, Random.Range(0, cliplist.Count), cliplist.Count)];
     }
 
-
-
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
     public static float ScaleValue(float value, float originalStart, float originalEnd, float newStart, float newEnd)
     {
         // credit to Wim Coenen, https://stackoverflow.com/questions/4229662/convert-numbers-within-a-range-to-numbers-within-another-range //
@@ -36,10 +36,10 @@ public static class AudioUtility
         return (float)(newStart + ((value - originalStart) * scale));
     }
 
-
-
-
-
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
     public static AudioMixerGroup GetMixerGroup(string groupName)
     {
         AudioMixer masterMixer = Resources.Load("Master") as AudioMixer;
@@ -47,14 +47,14 @@ public static class AudioUtility
         return mixerGroup;
     }
 
-
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
     private static IEnumerator FadeAudioSource(AudioSource source, float fadetime, float targetVol, float curveShape, bool stopAfterFade)
     {
         Keyframe[] keys = new Keyframe[2];
         keys[0] = new Keyframe(0, 0, 0, 1f - curveShape, 0, 1f - curveShape);
         keys[1] = new Keyframe(1, 1, 1f - curveShape, 0f, curveShape, 0);
         AnimationCurve animcur = new AnimationCurve(keys);
-
+    // ### MMN STATEMENT BRACKETS ###
         if (source.gameObject.GetComponent<AudioSource>())
             source = source.gameObject.GetComponent<AudioSource>();
 
@@ -80,4 +80,5 @@ public static class AudioUtility
     }
 
 }
-
+    // ### MMN REMOVE WHITESPACE LINE HERE ###
+    // ### MMN POTENTIALLY ADD A DEBUG UTILITY FUNCTION HERE IF YOU'RE CONSISTENTLY USING THE SAME FORMAT, INSTEAD OF IN THE AUDIO CONTROLLER/EVERY OTHER CLASS ###
